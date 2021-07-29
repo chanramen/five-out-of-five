@@ -4,11 +4,13 @@ import * as _ from 'lodash';
 import AppChoiceRepository, {RandomChoice, App as AppModel} from "./data/AppChoiceRepository";
 import ChoiceItem from "./components/ChoiceItem";
 import ReviewItem from "./components/ReviewItem";
+import ScoreView from "./components/ScoreView";
 
 interface AppState {
     currentChoice?: RandomChoice
     isLoading: boolean
     correctCount: number
+    totalCount: number
 }
 
 class App extends React.Component<{}, AppState> {
@@ -18,7 +20,8 @@ class App extends React.Component<{}, AppState> {
         super(props);
         this.state = {
             isLoading: false,
-            correctCount: 0
+            correctCount: 0,
+            totalCount: 0
         }
     }
 
@@ -42,9 +45,11 @@ class App extends React.Component<{}, AppState> {
     render() {
         return (
             <div className="App">
-                <div>Correct count: {this.state.correctCount}</div>
+                <ScoreView total={this.state.totalCount} right={this.state.correctCount} />
                 {!this.state.isLoading && this.state.currentChoice != null && <div className="choices-container">
-                    {this.state.currentChoice.items.map((item) => ChoiceItem({app: item, onClick: this.handleClick.bind(this)}))}
+                    {this.state.currentChoice.items.map((item) => <ChoiceItem app={item}
+                                                                              key={item.title}
+                                                                              onClick={this.handleClick.bind(this)}/>)}
                 </div>}
                 {!this.state.isLoading && this.state.currentChoice != null && <div>
                     <ReviewItem review={this.state.currentChoice.review}/>
@@ -59,9 +64,14 @@ class App extends React.Component<{}, AppState> {
         let isCorrect = _.isEqual(this.state.currentChoice?.review?.app, app)
         if (isCorrect) {
             this.setState({
-                correctCount: this.state.correctCount + 1
+                correctCount: this.state.correctCount + 1,
             })
         }
+        this.setState(
+            {
+                totalCount: this.state.totalCount + 1
+            }
+        )
         this.loadNextChoice()
     }
 }

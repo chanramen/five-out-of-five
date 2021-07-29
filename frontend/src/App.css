@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .App {
   text-align: center;
 }
@@ -38,18 +40,45 @@
 }
 
 .choice-item {
-  max-width: 25vw;
+  max-width: 20vw;
   display: inline-block;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.choice-item-text {
+  font-family: Lobster;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  color: white;
   padding: 16px;
 }
 
 .choice-item-image {
   max-width: 20vw;
+  border-radius: 16px 16px 0px 0px;
 }
 
-.review-item {
+.review-item-container {
   max-width: 1024px;
   padding-left: 5vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
   padding-right: 5vw;
-  margin: auto;
+  background: rgba(255, 255, 255, 0.2);
+  min-height: 25vh;
+  margin-top: 15vh;
+}
+.review-item-content {
+}
+.review-item-text {
+  color: #FFFFFF;
+  font-family: Lobster;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 45px;
 }
