@@ -17,8 +17,8 @@ const MaxScoreViewText = styled(ScoreViewText) `
 
 function ScoreView(props: {total: number, right: number}) {
     return <ScoreViewContainer>
-        <ScoreViewText>{props.right}</ScoreViewText>
-        <MaxScoreViewText>{props.total}</MaxScoreViewText>
+        <ScoreViewText title="Текущее число очков">{props.right}</ScoreViewText>
+        <MaxScoreViewText title="Максимальное число очков">{props.total}</MaxScoreViewText>
     </ScoreViewContainer>
 }
 
