@@ -5,23 +5,25 @@ import AppChoiceRepository, {RandomChoice, App as AppModel} from "./data/AppChoi
 import ChoiceItem from "./components/ChoiceItem";
 import ReviewItem from "./components/ReviewItem";
 import ScoreView from "./components/ScoreView";
+import UserDataRepository from "./data/UserDataRepository";
 
 interface AppState {
     currentChoice?: RandomChoice
     isLoading: boolean
     correctCount: number
-    totalCount: number
+    maxGuessed: number
 }
 
 class App extends React.Component<{}, AppState> {
     private repo = new AppChoiceRepository();
+    private userDataRepo = new UserDataRepository()
 
     constructor(props: {}) {
         super(props);
         this.state = {
             isLoading: false,
             correctCount: 0,
-            totalCount: 0
+            maxGuessed: this.userDataRepo.maxScore
         }
     }
 
@@ -45,7 +47,7 @@ class App extends React.Component<{}, AppState> {
     render() {
         return (
             <div className="App">
-                <ScoreView total={this.state.totalCount} right={this.state.correctCount} />
+                <ScoreView total={this.state.maxGuessed} right={this.state.correctCount}/>
                 {!this.state.isLoading && this.state.currentChoice != null && <div className="choices-container">
                     {this.state.currentChoice.items.map((item) => <ChoiceItem app={item}
                                                                               key={item.title}
@@ -60,18 +62,25 @@ class App extends React.Component<{}, AppState> {
 
 
     private handleClick(app: AppModel) {
-        console.log(`selected ${JSON.stringify(app)},\ncorrect ${JSON.stringify(this.state.currentChoice?.review.app)}`)
         let isCorrect = _.isEqual(this.state.currentChoice?.review?.app, app)
         if (isCorrect) {
+            let correctCount = this.state.correctCount + 1
             this.setState({
-                correctCount: this.state.correctCount + 1,
+                correctCount: correctCount,
             })
-        }
-        this.setState(
-            {
-                totalCount: this.state.totalCount + 1
+            if (correctCount > this.state.maxGuessed) {
+                this.setState({
+                    maxGuessed: correctCount
+                })
+                this.userDataRepo.maxScore = correctCount
             }
-        )
+        } else {
+            this.setState(
+                {
+                    correctCount: this.state.correctCount - 1
+                }
+            )
+        }
         this.loadNextChoice()
     }
 }

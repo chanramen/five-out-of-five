@@ -19,7 +19,7 @@ type RandomChoice = {
 
 class AppChoiceRepository {
     async getRandomChoice(): Promise<RandomChoice> {
-        return (await axios.get("http://fivestars.tgrounds.xyz/api/get-choice")).data
+        return (await axios.get("https://fivestars.tgrounds.xyz/api/get-choice")).data
     }
 }
 
