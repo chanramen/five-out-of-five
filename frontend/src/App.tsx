@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import * as _ from 'lodash';
 import AppChoiceRepository, {RandomChoice, App as AppModel} from "./data/AppChoiceRepository";
-import ChoiceItem from "./components/ChoiceItem";
-import ReviewItem from "./components/ReviewItem";
 import ScoreView from "./components/ScoreView";
 import UserDataRepository from "./data/UserDataRepository";
 import styled from "styled-components";
 
 const AppWrapper = styled.div`
-    text-align: center;
+  text-align: center;
 `
+
+const ReviewItem = React.lazy(() => import("./components/ReviewItem"));
+const ChoiceItem = React.lazy(() => import("./components/ChoiceItem"));
 
 interface AppState {
     currentChoice?: RandomChoice
@@ -53,12 +54,15 @@ class App extends React.Component<{}, AppState> {
             <AppWrapper>
                 <ScoreView total={this.state.maxGuessed} right={this.state.correctCount}/>
                 {!this.state.isLoading && this.state.currentChoice != null && <div className="choices-container">
-                    {this.state.currentChoice.items.map((item) => <ChoiceItem app={item}
-                                                                              key={item.title}
-                                                                              onClick={this.handleClick.bind(this)}/>)}
+                    {this.state.currentChoice.items.map((item) => <Suspense fallback={<div/>} key={item.title}>
+                        <ChoiceItem app={item}
+                                    onClick={this.handleClick.bind(this)}/>
+                    </Suspense>)}
                 </div>}
                 {!this.state.isLoading && this.state.currentChoice != null && <div>
-                    <ReviewItem review={this.state.currentChoice.review}/>
+                    <Suspense fallback={<div/>}>
+                        <ReviewItem review={this.state.currentChoice.review}/>
+                    </Suspense>
                 </div>}
             </AppWrapper>
         );
