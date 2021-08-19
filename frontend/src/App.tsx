@@ -1,11 +1,15 @@
 import React from 'react';
-import './App.css';
 import * as _ from 'lodash';
 import AppChoiceRepository, {RandomChoice, App as AppModel} from "./data/AppChoiceRepository";
 import ChoiceItem from "./components/ChoiceItem";
 import ReviewItem from "./components/ReviewItem";
 import ScoreView from "./components/ScoreView";
 import UserDataRepository from "./data/UserDataRepository";
+import styled from "styled-components";
+
+const AppWrapper = styled.div`
+    text-align: center;
+`
 
 interface AppState {
     currentChoice?: RandomChoice
@@ -46,7 +50,7 @@ class App extends React.Component<{}, AppState> {
 
     render() {
         return (
-            <div className="App">
+            <AppWrapper>
                 <ScoreView total={this.state.maxGuessed} right={this.state.correctCount}/>
                 {!this.state.isLoading && this.state.currentChoice != null && <div className="choices-container">
                     {this.state.currentChoice.items.map((item) => <ChoiceItem app={item}
@@ -56,7 +60,7 @@ class App extends React.Component<{}, AppState> {
                 {!this.state.isLoading && this.state.currentChoice != null && <div>
                     <ReviewItem review={this.state.currentChoice.review}/>
                 </div>}
-            </div>
+            </AppWrapper>
         );
     }
 

@@ -1,14 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import GlobalFonts from "./components/ui/GlobalFonts";
+import {createGlobalStyle} from "styled-components";
+
+const GlobalStyles = createGlobalStyle`
+  body {
+    margin: 0;
+    background: linear-gradient(248.66deg, #140284 16.67%, #FF0099 100%) fixed;
+  }
+`
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <GlobalStyles/>
+        <GlobalFonts/>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
