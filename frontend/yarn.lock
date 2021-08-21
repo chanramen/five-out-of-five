@@ -2322,6 +2322,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dom-to-image@npm:^2":
+  version: 2.6.3
+  resolution: "@types/dom-to-image@npm:2.6.3"
+  checksum: f50861f882663f853097fda03ad4ae2c4493c25d0b84cd35f9e796da9b9fccb5c3ced054ffadf14af58879c243e8a507d828b6c2ffa3bf30efdba078abcababb
+  languageName: node
+  linkType: hard
+
 "@types/eslint@npm:^7, @types/eslint@npm:^7.2.6":
   version: 7.28.0
   resolution: "@types/eslint@npm:7.28.0"
@@ -2343,6 +2350,13 @@ __metadata:
   version: 0.0.39
   resolution: "@types/estree@npm:0.0.39"
   checksum: 412fb5b9868f2c418126451821833414189b75cc6bf84361156feed733e3d92ec220b9d74a89e52722e03d5e241b2932732711b7497374a404fad49087adc248
+  languageName: node
+  linkType: hard
+
+"@types/file-saver@npm:^2":
+  version: 2.0.3
+  resolution: "@types/file-saver@npm:2.0.3"
+  checksum: 5f4de5e0dd1f7b48a9da9377b2be853ed4f185768346e529ff1b6ab76ec76c52aa0264029b900dc59b2d8c9a52e2bc7e747985fb2f3517f5ce9a433a0def0c36
   languageName: node
   linkType: hard
 
@@ -2428,10 +2442,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^16.6.2":
+"@types/node@npm:*":
   version: 16.6.2
   resolution: "@types/node@npm:16.6.2"
   checksum: 2245e50058ac49ab3d76af5ded7fc655d783a88a800139dad6caaf962f15c909287853012c9461b49600741bcc2b09042f94ce734f0440b6ad444d838e62904a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^16.7.1":
+  version: 16.7.1
+  resolution: "@types/node@npm:16.7.1"
+  checksum: fcf1a2c7b1f19c2201574b2110176b49c6efd824a39b2ed8ac3e6688740e2a35bef95a3334dfa345f4bd4873fd8b79d8ac8cfcc9fcd3d2f4f8f993c2c37ce4ab
   languageName: node
   linkType: hard
 
@@ -5607,6 +5628,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dom-to-image@npm:^2.6.0":
+  version: 2.6.0
+  resolution: "dom-to-image@npm:2.6.0"
+  checksum: 0d1f450b776d36f3ec982783d2a3898baaa3697f135ed0a9c70085db6bc5ac6def02f5ed7affc6acb92ef4fb3248905fabec915fed541994383d317260f784a2
+  languageName: node
+  linkType: hard
+
 "domain-browser@npm:^1.1.1":
   version: 1.2.0
   resolution: "domain-browser@npm:1.2.0"
@@ -6657,6 +6685,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"file-saver@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "file-saver@npm:2.0.5"
+  checksum: c62d96e5cebc58b4bdf3ae8a60d5cf9607ad82f75f798c33a4ee63435ac2203002584d5256a2a780eda7feb5e19dc3b6351c2212e58b3f529e63d265a7cc79f7
+  languageName: node
+  linkType: hard
+
 "file-uri-to-path@npm:1.0.0":
   version: 1.0.0
   resolution: "file-uri-to-path@npm:1.0.0"
@@ -6871,15 +6906,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "frontend@workspace:."
   dependencies:
+    "@types/dom-to-image": ^2
     "@types/eslint": ^7
+    "@types/file-saver": ^2
     "@types/lodash": ^4.14.171
-    "@types/node": ^16.6.2
+    "@types/node": ^16.7.1
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
     "@types/react-is": ^17
     "@types/styled-components": ^5.1.12
     "@typescript-eslint/eslint-plugin": ^4.29.2
     axios: ^0.21.1
+    dom-to-image: ^2.6.0
     eslint: ^7.32.0
     eslint-config-react-app: ^6.0.0
     eslint-plugin-flowtype: ^5.9.0
@@ -6887,13 +6925,14 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-react: ^7.24.0
     eslint-plugin-react-hooks: ^4.2.0
+    file-saver: ^2.0.5
     lodash: ^4.17.21
     react: ^17.0.2
     react-dom: ^17.0.2
     react-is: ^17.0.2
     react-scripts: 4.0.3
     styled-components: ^5.3.0
-    typescript: ^4.1.2
+    typescript: ^4.3.5
     web-vitals: ^2.1.0
   languageName: unknown
   linkType: soft
@@ -14298,7 +14337,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-typescript@^4.1.2:
+typescript@^4.3.5:
   version: 4.3.5
   resolution: "typescript@npm:4.3.5"
   bin:
@@ -14308,7 +14347,7 @@ typescript@^4.1.2:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.1.2#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.3.5#~builtin<compat/typescript>":
   version: 4.3.5
   resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=d8b4e7"
   bin:
