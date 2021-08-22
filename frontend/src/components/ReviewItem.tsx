@@ -35,7 +35,7 @@ const ReviewContainer = styled.div`
   margin-right: 10vw;
 `
 
-const StartContainer = styled.div`
+const StarContainer = styled.div`
   margin-bottom: 24px;
 `
 
@@ -59,20 +59,32 @@ function ReviewItem(props: { review: Review }) {
 
     async function shareReview() {
         let root = document.getElementById(SHARE_TARGET_ID)
-        if (root != null) {
-            root.style.background = "linear-gradient(248.66deg, #140284 16.67%, #FF0099 100%) fixed"
-        }
-
-        await shareRepository.shareHtmlTargetById(SHARE_TARGET_ID)
-        if (root != null) {
-            root.style.background = ""
+        let newRoot = document.createElement("div")
+        let shareTarget = root?.cloneNode(true);
+        if (shareTarget != null && shareTarget instanceof HTMLElement) {
+            newRoot.appendChild(shareTarget)
+            shareTarget.id = `${SHARE_TARGET_ID}+copy`
+            shareTarget.style.width = "1024px"
+            shareTarget.style.textAlign = "center"
+            shareTarget.style.padding = "32px"
+            newRoot.style.position = "fixed"
+            newRoot.style.top = "100vh"
+            shareTarget.style.background = "linear-gradient(248.66deg, #140284 16.67%, #FF0099 100%) fixed"
+            document.body.appendChild(newRoot)
+            try {
+                await shareRepository.shareHtmlAsImage(shareTarget)
+            } catch (e) {
+                console.log("error occurred", e)
+            } finally {
+                document.body.removeChild(newRoot)
+            }
         }
     }
 
     return <ReviewContainer>
         <ShareButton src={share} onClick={() => shareReview()}/>
         <div id={SHARE_TARGET_ID}>
-            <StartContainer>
+            <StarContainer>
                 {
                     Array.from({length: 5}, (_, i: number) => ({enabled: i < props.review.star, index: i}))
                         .map((item) => {
@@ -80,7 +92,7 @@ function ReviewItem(props: { review: Review }) {
                                                src={item.enabled ? starFilled : star}/>;
                         })
                 }
-            </StartContainer>
+            </StarContainer>
             <ReviewItemContainer>
                 <ReviewText>
                     {props.review.text}
