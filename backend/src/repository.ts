@@ -1,10 +1,29 @@
-const _ = require('lodash')
-const gplay = require('google-play-scraper');
+import type {IAppItem, IReviewsItem} from "google-play-scraper";
+import gplay, {category} from "google-play-scraper";
 
-let games = [];
+import _ from "lodash";
+
+const games: IAppItem[] = [];
+
+interface App {
+    title: string
+    imgUrl: string
+}
+
+interface Review {
+    title: string
+    text: string
+    star: number
+    app: App
+}
+
+interface GameData {
+    items: App[]
+    review: Review
+}
 
 class AppChoiceRepository {
-    async getRandomChoice() {
+    async getRandomChoice(): Promise<GameData> {
         let hasItem = false;
         let review;
         let items;
@@ -12,15 +31,17 @@ class AppChoiceRepository {
         while (!hasItem) {
             if (games.length === 0) {
                 games.push(...(await gplay.list({
-                    collection: gplay.collection.TOP_FREE_GAMES,
+                    collection: gplay.collection.TOP_GROSSING_GAMES,
                     num: 100,
-                    country: "ru"
+                    country: "ru",
+                    category: category.GAME
                 })))
             }
             items = _.sampleSize(games, 3)
             selectedItem = _.sample(items)
             try {
-                let reviews = (await gplay.reviews({appId: selectedItem.appId, lang: "ru", num: 100})).data;
+                // @ts-ignore
+                let reviews: IReviewsItem[] | undefined = (await gplay.reviews({appId: selectedItem.appId, lang: "ru", num: 100})).data;
                 if (reviews !== undefined && reviews.length > 0) {
                     hasItem = true
                     review = _.sample(reviews)
@@ -47,6 +68,4 @@ class AppChoiceRepository {
     }
 }
 
-module.exports = {
-    AppChoiceRepository
-}
+export default AppChoiceRepository

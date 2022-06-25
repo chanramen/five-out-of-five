@@ -1,8 +1,8 @@
-FROM node:16-alpine
+FROM node:18-alpine
 WORKDIR /app
 EXPOSE 8080
 COPY . .
-RUN yarn install
+RUN npm i
 
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
 

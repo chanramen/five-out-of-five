@@ -2,17 +2,23 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "node index.js"
+    "start": "tsc && node build/index.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "google-play-scraper": "^8.0.2",
+    "express": "^4.18.1",
+    "google-play-scraper": "^9.0.0",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.0.0",
+    "typescript": "^4.7.4"
   }
 }
